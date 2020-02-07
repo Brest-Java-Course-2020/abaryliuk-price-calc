@@ -19,7 +19,7 @@ public class App
         do {
 
             if (i == 0) {
-                System.out.println("Please, enter distance or Q for exit: ");
+                System.out.println("Enter distance or Q for exit: ");
             } else if (i == 1) {
                 System.out.println("Please, enter price per km or Q for exit: ");
             } else if (i == 2) {
@@ -80,23 +80,15 @@ public class App
         return checkResult;
     }
 
-    public static HashMap<String,Double> getAllDiscountPerKm() throws IOException, ClassNotFoundException {
+    public static HashMap<String,Double> getAllDiscount(String fileName) throws IOException, ClassNotFoundException {
 
-        FileInputStream fileInputStream = new FileInputStream("discountPerKm.bin");
+        FileInputStream fileInputStream = new FileInputStream(fileName);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        HashMap <String,Double> saleOfKm = (HashMap <String, Double>) objectInputStream.readObject();
+        HashMap <String,Double> DiscountOfKm = (HashMap <String, Double>) objectInputStream.readObject();
         objectInputStream.close();
-        return saleOfKm;
+        return DiscountOfKm;
     }
 
-    public static HashMap<String,Double> getAllDiscountPerWeight() throws IOException, ClassNotFoundException {
-
-        FileInputStream fileInputStream = new FileInputStream("discountPerWeight.bin");
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        HashMap <String,Double> discountPerWeight = (HashMap <String, Double>) objectInputStream.readObject();
-        objectInputStream.close();
-        return discountPerWeight;
-    }
 
     public static Double getValueDiscount(String nameDiscount,Map<String,Double> map){
         Double discount = 0.0;
@@ -109,29 +101,32 @@ public class App
     }
 
     public static Double getDiscountPerKm (Double km) throws IOException, ClassNotFoundException {
+        String fileNamePerKm = "discountPerKm.bin";
+
         Double discountPerKm = 0.0;
         if (km > 0 && km <= 100){
-            discountPerKm = getValueDiscount("SaleForKmBeforeHundred", getAllDiscountPerKm());
+            discountPerKm = getValueDiscount("SaleForKmBeforeHundred", getAllDiscount(fileNamePerKm));
         }
         else if (km > 100 && km <= 1000){
-            discountPerKm = getValueDiscount("SaleForKmAfterHundredBeforeThousand",getAllDiscountPerKm());
+            discountPerKm = getValueDiscount("SaleForKmAfterHundredBeforeThousand",getAllDiscount(fileNamePerKm));
         }
         else if (km > 1000){
-            discountPerKm = getValueDiscount("SaleForKmAfterThousand", getAllDiscountPerKm());
+            discountPerKm = getValueDiscount("SaleForKmAfterThousand", getAllDiscount(fileNamePerKm));
         }
         return discountPerKm;
     }
 
     public static Double getDiscountPerWeight (Double weight) throws IOException, ClassNotFoundException {
+        String fileNamePerWeight = "discountPerWeight.bin";
         Double discountPerWeight = 0.0;
         if (weight > 0 && weight <= 100){
-            discountPerWeight = getValueDiscount("SaleForWeightBeforeHundred", getAllDiscountPerWeight());
+            discountPerWeight = getValueDiscount("SaleForWeightBeforeHundred", getAllDiscount(fileNamePerWeight));
         }
         else if (weight > 100 && weight <= 1000){
-            discountPerWeight = getValueDiscount("SaleForWeightAfterHundredBeforeThousand",getAllDiscountPerWeight());
+            discountPerWeight = getValueDiscount("SaleForWeightAfterHundredBeforeThousand",getAllDiscount(fileNamePerWeight));
         }
         else if (weight > 1000){
-            discountPerWeight = getValueDiscount("SaleForWeightAfterThousand", getAllDiscountPerWeight());
+            discountPerWeight = getValueDiscount("SaleForWeightAfterThousand", getAllDiscount(fileNamePerWeight));
         }
         return discountPerWeight;
     }
