@@ -1,11 +1,8 @@
 package com.epam.selector;
-
 import com.epam.fileReader.FileReader;
 import com.epam.fileReader.FileReaderBin;
-
 import java.io.IOException;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class SelectPriceValue {
 
@@ -29,13 +26,5 @@ public class SelectPriceValue {
         }
         return discount;
     }
-
-//    public Double getDiscount (Double inputValues) throws IOException, ClassNotFoundException {
-//
-//        Double discount = getValueDiscount(inputValues, allDiscaunt());
-//
-//        return discount;
-//    }
-
 
 }

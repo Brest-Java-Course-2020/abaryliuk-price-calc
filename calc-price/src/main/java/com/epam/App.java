@@ -1,12 +1,9 @@
 package com.epam;
-
-import com.epam.fileReader.FileReader;
-import com.epam.fileReader.FileReaderBin;
 import com.epam.selector.SelectPriceValue;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -14,7 +11,10 @@ public class App{
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        SelectPriceValue selectPriceValue = new SelectPriceValue();
+        ApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("application-config.xml");
+
+        SelectPriceValue selectPriceValue = (SelectPriceValue) applicationContext.getBean("selectPriceValue");
 
         Double [] enteredValues = new Double[4];
 
