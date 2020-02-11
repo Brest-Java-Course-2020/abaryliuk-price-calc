@@ -1,15 +1,20 @@
 package com.epam;
 
+import com.epam.fileReader.FileReader;
+import com.epam.fileReader.FileReaderBin;
+import com.epam.selector.SelectPriceValue;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 
-public class App 
-{
+public class App{
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
+        SelectPriceValue selectPriceValue = new SelectPriceValue();
 
         Double [] enteredValues = new Double[4];
 
@@ -34,10 +39,10 @@ public class App
                 if (isCorrectDoubleValue(inputValue)) {
                     enteredValues[i] = Double.parseDouble(inputValue);
                     if (i == 0){
-                        enteredValues[i] = enteredValues[i] * getDiscountPerKm(enteredValues[i]);
+                        enteredValues[i] = enteredValues[i] * selectPriceValue.getValueDiscount(enteredValues[i]);
                     }
                     else if (i == 2){
-                        enteredValues[i] = enteredValues[i] * getDiscountPerWeight(enteredValues[i]);
+                        enteredValues[i] = enteredValues[i] * selectPriceValue.getValueDiscount(enteredValues[i]);
                     }
                     i++;
                 }
@@ -62,7 +67,6 @@ public class App
         } while (!isExitValue(inputValue));
 
         System.out.println("Finish!");
-
     }
 
     private static boolean isExitValue(String value) {
@@ -80,54 +84,4 @@ public class App
         return checkResult;
     }
 
-    public static HashMap<String,Double> getAllDiscount(String fileName) throws IOException, ClassNotFoundException {
-
-        FileInputStream fileInputStream = new FileInputStream(fileName);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        HashMap <String,Double> DiscountOfKm = (HashMap <String, Double>) objectInputStream.readObject();
-        objectInputStream.close();
-        return DiscountOfKm;
-    }
-
-
-    public static Double getValueDiscount(String nameDiscount,Map<String,Double> map){
-        Double discount = 0.0;
-        for (Map.Entry<String, Double> entry : map.entrySet()) {
-            if (entry.getKey().equals(nameDiscount)) {
-                discount = entry.getValue();
-            }
-        }
-        return discount;
-    }
-
-    public static Double getDiscountPerKm (Double km) throws IOException, ClassNotFoundException {
-        String fileNamePerKm = "discountPerKm.bin";
-
-        Double discountPerKm = 0.0;
-        if (km > 0 && km <= 100){
-            discountPerKm = getValueDiscount("SaleForKmBeforeHundred", getAllDiscount(fileNamePerKm));
-        }
-        else if (km > 100 && km <= 1000){
-            discountPerKm = getValueDiscount("SaleForKmAfterHundredBeforeThousand",getAllDiscount(fileNamePerKm));
-        }
-        else if (km > 1000){
-            discountPerKm = getValueDiscount("SaleForKmAfterThousand", getAllDiscount(fileNamePerKm));
-        }
-        return discountPerKm;
-    }
-
-    public static Double getDiscountPerWeight (Double weight) throws IOException, ClassNotFoundException {
-        String fileNamePerWeight = "discountPerWeight.bin";
-        Double discountPerWeight = 0.0;
-        if (weight > 0 && weight <= 100){
-            discountPerWeight = getValueDiscount("SaleForWeightBeforeHundred", getAllDiscount(fileNamePerWeight));
-        }
-        else if (weight > 100 && weight <= 1000){
-            discountPerWeight = getValueDiscount("SaleForWeightAfterHundredBeforeThousand",getAllDiscount(fileNamePerWeight));
-        }
-        else if (weight > 1000){
-            discountPerWeight = getValueDiscount("SaleForWeightAfterThousand", getAllDiscount(fileNamePerWeight));
-        }
-        return discountPerWeight;
-    }
 }
