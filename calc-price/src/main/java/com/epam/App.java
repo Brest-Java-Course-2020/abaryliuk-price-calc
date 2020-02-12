@@ -14,7 +14,7 @@ public class App{
         ApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("application-config.xml");
 
-        SelectPriceValue selectPriceValue = (SelectPriceValue) applicationContext.getBean("selectPriceValue");
+        SelectPriceValue selectPriceValue =  applicationContext.getBean("selectPriceValue", SelectPriceValue.class);
 
         Double [] enteredValues = new Double[4];
 
