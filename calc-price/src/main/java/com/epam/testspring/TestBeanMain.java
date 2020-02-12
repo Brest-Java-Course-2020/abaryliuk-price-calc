@@ -1,11 +1,10 @@
 package com.epam.testspring;
-
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestBeanMain {
     public static void main(String[] args){
-        ApplicationContext context = new ClassPathXmlApplicationContext("application-config-test-spring.xml");
+
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-config-test-spring.xml");
 
         PlayMusic playMusicOne = context.getBean("playMusic", PlayMusic.class);
 
@@ -22,8 +21,9 @@ public class TestBeanMain {
 //        System.out.println(playMusicOne.getVol());
 //        System.out.println(playMusicOne.getNamePlayer());
 
-//        // constructor-arg
+////        // constructor-arg, init and destroy method
 //        ClassicalMusic classicalMusic = context.getBean("musicBean",ClassicalMusic.class);
 //        System.out.println(classicalMusic.getName());
+//        context.close();
     }
 }

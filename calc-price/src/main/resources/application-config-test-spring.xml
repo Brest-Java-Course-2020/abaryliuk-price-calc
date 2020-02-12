@@ -10,7 +10,9 @@
     <context:property-placeholder location="classpath:playMusic.properties"/>
 
     <bean id="musicBean"
-          class="com.epam.testspring.ClassicalMusic" >
+          class="com.epam.testspring.ClassicalMusic"
+          init-method="initMethod"
+          destroy-method="destroyMethod">
         <constructor-arg value="Some name"/>
     </bean>
 
