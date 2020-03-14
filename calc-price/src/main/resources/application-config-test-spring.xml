@@ -23,13 +23,6 @@
         <property name="namePlayer" value="${playMusic.namePlayer}"/>
         <property name="vol" value="${playMusic.vol}"/>
     </bean>
-    <!--<bean id="musicPlayer"-->
-    <!--class="ru.alishev.springcourse.MusicPlayer"-->
-    <!--scope="prototype">-->
-    <!--<property name="music" ref="musicBean"/>-->
 
-    <!--<property name="name" value="${musicPlayer.name}"/>-->
-    <!--<property name="volume" value="${musicPlayer.volume}"/>-->
-    <!--</bean>-->
 
 </beans>
