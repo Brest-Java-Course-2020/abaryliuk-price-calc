@@ -1,2 +1,2 @@
-![Java CI](https://github.com/Brest-Java-Course-2020/abaryliuk-price-calc/workflows/Java%20CI/badge.svg)
+![Java CI](https://travis-ci.com/Brest-Java-Course-2020/abaryliuk-price-calc.svg?branch=master)
 # abaryliuk-price-calc
